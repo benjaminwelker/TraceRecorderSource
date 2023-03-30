@@ -60,7 +60,7 @@ extern "C" {
  * TRC_FREERTOS_VERSION_10_5_0				If using FreeRTOS v10.5.0
  * TRC_FREERTOS_VERSION_10_5_1				If using FreeRTOS v10.5.1 or later
  */
-#define TRC_CFG_FREERTOS_VERSION FREERTOS_VERSION_NOT_SET
+#define TRC_CFG_FREERTOS_VERSION TRC_FREERTOS_VERSION_10_3_1
 
 /**
  * @def TRC_CFG_INCLUDE_EVENT_GROUP_EVENTS
@@ -111,7 +111,7 @@ extern "C" {
  * traceQUEUE_SEND to traceQUEUE_SET_SEND in order to tell them apart from
  * other traceQUEUE_SEND trace points. Then set this to TRC_ACKNOWLEDGED.
  */
-#define TRC_CFG_ACKNOWLEDGE_QUEUE_SET_SEND  0 /* TRC_ACKNOWLEDGED */
+#define TRC_CFG_ACKNOWLEDGE_QUEUE_SET_SEND  TRC_ACKNOWLEDGED
 
 #ifdef __cplusplus
 }

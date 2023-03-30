@@ -92,7 +92,7 @@
  * It is advised to keep the time between most events below 65535 native ticks
  * (after division by TRC_HWTC_DIVISOR) to avoid frequent XTS events.
  ******************************************************************************/
-
+#define TRC_CFG_ARM_CM_USE_SYSTICK
 #if (TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_NOT_SET)
 	#error "TRC_CFG_HARDWARE_PORT not selected - see trcConfig.h"
 #endif
@@ -216,13 +216,14 @@ uint32_t uiTraceTimerGetValue(void);
 			#define TRC_HWTC_DIVISOR 1
 			#define TRC_HWTC_FREQ_HZ 1000000
 			#define TRC_IRQ_PRIORITY_ORDER 0
-		#else	
-			#define TRC_HWTC_TYPE TRC_OS_TIMER_DECR
-			#define TRC_HWTC_COUNT (*((volatile uint32_t*)0xE000E018))
-			#define TRC_HWTC_PERIOD ((*((volatile uint32_t*)0xE000E014)) + 1)
-			#define TRC_HWTC_DIVISOR 4
-			#define TRC_HWTC_FREQ_HZ TRACE_CPU_CLOCK_HZ
-			#define TRC_IRQ_PRIORITY_ORDER 0
+        #else
+            /* Exoterra Specific timestamping configs */
+            #define TRC_HWTC_TYPE TRC_FREE_RUNNING_32BIT_DECR
+            #define TRC_HWTC_COUNT   VOR_TIM0->CNT_VALUE
+            #define TRC_HWTC_PERIOD  0xFFFFFFFF
+            #define TRC_HWTC_DIVISOR 2
+            #define TRC_HWTC_FREQ_HZ 100000000
+            #define TRC_IRQ_PRIORITY_ORDER 0
 		#endif
 	
 	#endif
